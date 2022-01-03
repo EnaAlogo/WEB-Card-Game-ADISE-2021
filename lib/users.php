@@ -3,7 +3,7 @@
 
 function show_users() {
 	global $mysqli;
-	$sql = 'select username,p_num from players';
+	$sql = 'select username,p_turn from players';
 	$st = $mysqli->prepare($sql);
 	$st->execute();
 	$res = $st->get_result();
@@ -12,7 +12,7 @@ function show_users() {
 }
 function show_user($b) {
 	global $mysqli;
-	$sql = 'select username,p_num from players where p_num=?';
+	$sql = 'select username,p_turn from players where p_turn=?';
 	$st = $mysqli->prepare($sql);
 	$st->bind_param('s',$b);
 	$st->execute();
@@ -30,7 +30,7 @@ function set_user($b,$input) {
 	}
 	$username=$input['username'];
 	global $mysqli;
-	$sql = 'select count(*) as c from players where p_num=? and username is not null';
+	$sql = 'select count(*) as c from players where p_turn=? and username is not null';
 	$st = $mysqli->prepare($sql);
 	$st->bind_param('s',$b);
 	$st->execute();
@@ -41,7 +41,7 @@ function set_user($b,$input) {
 		print json_encode(['errormesg'=>"Player $b is already set."]);
 		exit;
 	}
-	$sql = 'update players set username=?, token=md5(CONCAT( ?, NOW()))  where p_num=?';
+	$sql = 'update players set username=?, token=md5(CONCAT( ?, NOW()))  where p_turn=?';
 	$st2 = $mysqli->prepare($sql);
 	$st2->bind_param('sss',$username,$username,$b);
 	$st2->execute();
@@ -49,7 +49,7 @@ function set_user($b,$input) {
 
 	
 	update_game_status();
-	$sql = 'select * from players where p_num=?';
+	$sql = 'select * from players where p_turn=?';
 	$st = $mysqli->prepare($sql);
 	$st->bind_param('s',$b);
 	$st->execute();
@@ -77,7 +77,7 @@ function current_player($token) {
 	$st->execute();
 	$res = $st->get_result();
 	if($row=$res->fetch_assoc()) {
-		return($row['p_num']);
+		return($row['p_turn']);
 	}
 	return(null);
 }
