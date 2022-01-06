@@ -391,13 +391,13 @@ if stat='started' then
  if turn=ow then
 
   if ow='p1' then
-   if(select owning from deck where cardid=id)='player1' then
+   if(select owning from deck where cardid=id)='player2' then
     update deck
      set owning='player1' where cardid=id;
      call delete_dups('player1');
    end if;
   else
-  if(select owning from deck where cardid=id)='player2' then
+  if(select owning from deck where cardid=id)='player1' then
    update deck set owning='player2' where cardid=id;
    call delete_dups('player2');
   end if;
@@ -405,9 +405,6 @@ if stat='started' then
 
 update game_status set p_turn=if(ow='p1','p2','p1');
 call win_condition;
-
-end if;
-end if;
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -525,6 +522,32 @@ DELIMITER ;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `new_game`()
+BEGIN
+call new_deck;
+update game_status set status='started';
+update game_status set p_turn='p1';
+END ;;
+
+DELIMITER ;
+
+
+DELIMITER ;;
+CREATE DEFINER=`root`@`localhost` PROCEDURE `reset_database`()
+BEGIN
+call new_deck;
+update game_status set status='not active';
+update game_status set result=null;
+update game_status set p_turn=null;
+update players set username=null,token=null where p_turn='p1' or p_turn='p2';
+
+END ;;
+
+DELIMITER ;
+
+
+
 
 -- Dump completed on 2021-12-31 12:43:14
 
