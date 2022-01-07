@@ -49,8 +49,12 @@ O μουτζούρης παίζεται ως εξής: Αφού ανακατέψ
 
 ## Συντελεστές
 Στο project Πραγματοποιήθηκε ολόκληρο από έμενα solo
-με GUI Javascript/css/html
-Php Api
+με 
+
+GUI Javascript/css/html
+
+Php API
+
 MySQL
 
 # Περιγραφή API
