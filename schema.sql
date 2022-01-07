@@ -524,6 +524,7 @@ BEGIN
 if (select status from game_status)!='not active' and
 (select status from game_status)!='initialized' then
 call new_deck;
+update game_status set result=null;
 update game_status set status='started';
 update game_status set p_turn='p1';
 end if;
