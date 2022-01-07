@@ -1,0 +1,179 @@
+*,*::after,*::before {
+    box-sizing: border-box;
+}
+body {
+    background-image: url(https://t4.ftcdn.net/jpg/00/93/36/49/360_F_93364974_eoos8QGsa9CzTa5hGRRL6EutXMSKgdOA.jpg);
+    margin: 0;
+    background-position: center;
+
+    background-size: cover;
+    display: grid;
+    grid-template-columns: repeat(2, 4rem) ;
+    grid-template-rows: 7rem 2rem 7rem;
+    gap: .5rem;
+    justify-content: center;
+    padding-top: 1rem;
+}
+
+
+.deck{
+    height: 100%;
+    width: 100%;
+    border: 1px solid black;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 3rem;
+    border-radius: .5rem;
+    color: white;
+    user-select: none;
+
+}
+
+
+.p2-deck{
+
+    background-color: transparent;
+    border: transparent;
+    position: relative;
+
+}
+.p1-deck{
+    background-color: aliceblue;
+
+}
+#game_reset{
+    max-height: 2.3rem;
+}
+.button{
+    font-size: medium;
+    grid-column: span 2;
+    color: white;
+    position: relative;
+    top: -50px;
+    font-weight: bolder;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.card {
+    cursor: pointer;
+    position: relative;
+    left: -550px;
+    height: 100%;
+    width:100%;
+    border: 1px solid black;
+    border-radius: .5rem;
+    text-align: center;
+    background-color:rgba(255, 255, 255, 0.822);
+
+    justify-content: center;
+    align-items: center;
+    font-size: 4rem;
+    margin:3px;
+    padding: 10px ;
+    padding-right: 15px;
+    padding-top: 15px;
+    animation-duration: 3000ms;
+
+
+
+
+}
+.widget{
+    color: #fff;
+    position: absolute;
+    left:10%;
+    top: 40%;
+    font-size: 2em;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ffffff, 0 0 40px #ffffff, 0 0 50px #ffffff, 0 0 60px #ffffff, 0 0 70px #ffffff;
+}
+.card:hover{
+   top:-10px;
+   border: 3px solid black;
+
+
+}
+
+
+
+
+
+.card.red {
+
+    color:red;
+
+
+
+}
+.card.black{
+
+    color:rgb(11, 11, 42);
+
+}
+.card.purple{
+    color: purple;
+    font-family: 'Aclonica';
+    font-size: 2.5rem !important;
+    padding-left:-100px !important;
+    padding-top: 25px;
+
+}
+.card.back{
+    background-image: url(https://cdn1.dotesports.com/wp-content/uploads/2019/06/04155754/stolenthunder.jpg1.jpg);
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.card::before,
+.card::after{
+    position: absolute;
+content: attr(data-value);
+font-size: 1rem;
+
+
+}
+.card::before{
+top: .5rem;
+left: .5rem;
+
+}
+.card::after{
+    bottom: .5rem;
+    right: .5rem;
+    transform: rotate(180deg);
+
+}
+
+#new{
+    height: 50%;
+    backdrop-filter: blur(10px);
+    
+    border: 2px solid black;
+    border-radius: 10px;
+    filter: grayscale(100%);
+    background-color: crimson;
+
+
+}
+#new:hover{
+    color: #fff;
+    background: #f70606;
+    box-shadow: 0 0 25px 10px #ff1414;
+}
+#new:enabled{
+    filter: inherit;
+}
+#new:active{
+    position: relative;
+    top:10px;
+    filter: grayscale(50%);
+}
+
+.score{
+    position: relative;
+    top: 10px;
+    left:200px;
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #ffffff, 0 0 40px #ffffff, 0 0 50px #ffffff, 0 0 60px #ffffff, 0 0 70px #ffffff;
+}

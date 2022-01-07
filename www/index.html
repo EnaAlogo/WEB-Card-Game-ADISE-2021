@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ADISE 21 MOUTZOURIS</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="css/style.css">   
+
+    
+
+
+    
+    
+	
+    <script src="jquery-ui-1.12.1/jquery-ui.min.js"></script>
+	<link href="jquery-ui-1.12.1/jquery-ui.min.css" rel="stylesheet">
+</head>
+<body >
+    <audio id="cardpick">
+        <source src="536782__egomassive__flip.ogg" type="audio/ogg">
+      </audio>
+      <audio id="turnnotif">
+        <source src="542035__rob-marion__gasp-ui-notification-4.wav" type="audio/wav">
+      </audio>
+
+    <div class="p2-deck deck"></div>
+    <div class="p2-card-slot card-slot" style="display: flex ;flex-direction: row;"></div>
+    <div class="button"></div>
+    <button type="button" id="new" onclick="reset_database()">RESET DATA BASE</button>
+    <a class="gohome" href="#home">Return home</a>
+   <div class='widget'></div>
+    <div class="p1-card-slot card-slot" style="display: flex ;flex-direction: row;"></div>
+    <div id='game_initializer'>
+        <input id='username'> 
+        <select id='pturn'>
+        <option value='p1'>1</option>
+        <option value='p2'>2</option>
+        </select>
+        <button id='game_login' class='btn btn-primary'>Login</button><br>
+        </div>
+        <div id='game_info'>
+        </div>
+    <button id='game_reset' class='btn btn-primary' >Restart</button><br>
+    <br><br>
+    <div class="sc1 score" style="color: aliceblue;">Me: 0</div>
+    <br>
+    <div class="sc2 score"style="color: aliceblue;">Other player: 0</div>
+  <script src="js/moutzouris.js"></script>
+</body>
+</html>  
