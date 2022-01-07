@@ -377,18 +377,13 @@ DELIMITER ;
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
 /*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,NO_ENGINE_SUBSTITUTION' */ ;
 DELIMITER ;;
-CREATE DEFINER=`root`@`localhost` PROCEDURE `pick_card`(ow varchar(2),id tinyint)
+CREATE DEFINER=`root`@`localhost` PROCEDURE `pick_card`(id tinyint,ow varchar(2))
 BEGIN
 
 declare cond boolean;
 declare stat varchar(15);
 declare turn varchar(2);
 
-set stat=(select `status` from game_status);
-set turn=(select p_turn from game_status);
-
-if stat='started' then
- if turn=ow then
 
   if ow='p1' then
    if(select owning from deck where cardid=id)='player2' then
