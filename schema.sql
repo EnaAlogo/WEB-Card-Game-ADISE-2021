@@ -292,7 +292,7 @@ delete  E from deck E  INNER JOIN
                RANK() OVER(PARTITION BY val,owning
                ORDER BY cardid) rankk
         FROM deck where owning=own
-    ) T ON E.cardid = t.cardid
+    ) T ON E.cardid = T.cardid
     WHERE rankk > 1 ;
 
 
