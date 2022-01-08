@@ -164,7 +164,7 @@ GET /status/
 | `cardid`                      | Η   Ταυτότητα κάρτας          | 1..41                                |
 | `suits`                      | Η αξία της κάρτας            | "♥","♦","♠","♣"                            |
 | `val`                |Η αξία της κάρτας                      |"A",2,3,4,5,6,7,8,9,10,"J","Q","K"                      |
-| `owning`            | To χρώμα του πιονιού                         | 'player1','player2','player3','player4','player5','player6' null                       |
+| `owning`            | Ο κάτοχος τηςω κάρτας                       | 'player1','player2','player3','player4','player5','player6' null                       |
 
 
 
