@@ -131,7 +131,7 @@ function fill_deck_by_data(data){
         
         var o=event.target;
         var id=o.id;
-        $.ajax({url: "moutzouris.php/deck/card/"+id, 
+        $.ajax({url: "moutzouris.php/deck/card/", 
                 method: 'PUT',
                 dataType: "json",
                 contentType: 'application/json',
