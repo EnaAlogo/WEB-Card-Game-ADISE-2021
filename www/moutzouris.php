@@ -26,7 +26,7 @@ switch ($r=array_shift($request)) {
             case '':
             case null: handle_deck($method,$input);
                         break;
-            case 'card': handle_card($method,$input);
+            case 'card': handle_card($method,$request,$input);
                         break;
 	    default: header("HTTP/1.1 404 Not Found");
                             break;
@@ -59,10 +59,10 @@ function handle_deck($method,$input) {
 
 }
 
-    function handle_card($method,$input) {
-         
+    function handle_card($method,$id,$input) {
+         $cid=array_shift($id);
         if($method=='GET') {
-            show_card($input['cardid']);
+            show_card($cid);
         } else if ($method=='PUT') {
            
             
