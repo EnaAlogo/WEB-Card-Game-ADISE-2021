@@ -111,7 +111,7 @@ PUT /deck/
 #### Ανάγνωση κάρτας
 
 ```
-GET /board/card/:cardid/
+GET /board/card/:id
 ```
 
 Επιστρέφει τα στοιχεία από το [deck](#Deck-1) περιλαμβάνει το χρώμα/σχήμα της κάρτας, την αξία της κάρτας τον κάτοχο και την ταυτότητα της κάρτας. 
@@ -119,7 +119,7 @@ GET /board/card/:cardid/
 #### Επιλογή Κάρτας
 
 ```
-PUT /deck/card/
+PUT /deck/card/:id
 ```
 Json Data:
 
