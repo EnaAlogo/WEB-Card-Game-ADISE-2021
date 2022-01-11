@@ -46,38 +46,36 @@ function reset_database2() {
 }
 
 
-function drawCardBack(i){
+function drawCard(data,type){
     const carddiv=document.createElement('div')
+    switch(type){
+        case 'back':
 
 carddiv.innerText='??'
 carddiv.classList.add("card",'back')
 
-carddiv.setAttribute("id",i)
+carddiv.setAttribute("id",data.cardid)
 
-return carddiv
-}
-function drawCard(i,data){
-
-    const carddiv=document.createElement('div')
+break;
+case 'card':
+   
     const color=data.suits==="♣"||data.suits==="♠" ? 'black' : 'red' 
     carddiv.innerText=data.suits
     carddiv.classList.add("card",color)
     carddiv.dataset.value=`${data.val} ${data.suits}`
-    carddiv.setAttribute("id",i)
-
-    return carddiv
-
-    }
-function drawMoutz(i){
- const carddiv=document.createElement('div')
- carddiv.innerText='??'
+    carddiv.setAttribute("id",data.cardid)
+    break;
+case 'moutzouris':
+    carddiv.innerText='??'
 carddiv.classList.add("card",'moutz')
 
-carddiv.setAttribute("id",i)
-
-return carddiv
+carddiv.setAttribute("id",data.cardid)
+break;
+    }
+    return carddiv;
 
 }
+
 function fill_deck_by_data(data){
     cleandivs();
 
@@ -93,18 +91,18 @@ function fill_deck_by_data(data){
             compar='player2'
         }
         var o=data[i]
-        var id=o.cardid;
+        
         if(o.owning==compar){	
             if(o.val=='K'){
-                p1cardslot.appendChild(drawMoutz(id))
+                p1cardslot.appendChild(drawCard(o,'moutzouris'))
             }
             else{
-            p1cardslot.appendChild(drawCard(id,o))
+            p1cardslot.appendChild(drawCard(o,'card'))
             }
             }
         else {	
-        p2cardslot.appendChild(drawCardBack(id))
-        document.getElementById(id).addEventListener("click",do_move,false)
+        p2cardslot.appendChild(drawCard(o,'back'))
+        document.getElementById(o.cardid).addEventListener("click",do_move,false)
         }}
 
     }}
