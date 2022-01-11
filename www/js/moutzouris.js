@@ -46,17 +46,17 @@ function reset_database2() {
 }
 
 
-function getHTML2(i){
+function drawCardBack(i){
     const carddiv=document.createElement('div')
 
-carddiv.innerText='?'
+carddiv.innerText='??'
 carddiv.classList.add("card",'back')
 
 carddiv.setAttribute("id",i)
 
 return carddiv
 }
-function getHTML(i,data){
+function drawCard(i,data){
 
     const carddiv=document.createElement('div')
     const color=data.suits==="♣"||data.suits==="♠" ? 'black' : 'red' 
@@ -68,6 +68,16 @@ function getHTML(i,data){
     return carddiv
 
     }
+function drawMoutz(i){
+ const carddiv=document.createElement('div')
+ carddiv.innerText='??'
+carddiv.classList.add("card",'moutz')
+
+carddiv.setAttribute("id",i)
+
+return carddiv
+
+}
 function fill_deck_by_data(data){
     cleandivs();
 
@@ -85,11 +95,15 @@ function fill_deck_by_data(data){
         var o=data[i]
         var id=o.cardid;
         if(o.owning==compar){	
-            p1cardslot.appendChild(getHTML(id,o))
-
+            if(o.val=='K'){
+                p1cardslot.appendChild(drawMoutz(id))
+            }
+            else{
+            p1cardslot.appendChild(drawCard(id,o))
+            }
             }
         else {	
-        p2cardslot.appendChild(getHTML2(id))
+        p2cardslot.appendChild(drawCardBack(id))
         document.getElementById(id).addEventListener("click",do_move,false)
         }}
 
