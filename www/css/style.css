@@ -98,7 +98,13 @@ body {
 
 
 
-
+.card.moutz{
+    background-image: url('https://www.heritage-print.com/p/731/king-spades-deck-goodall-son-ltd-14968580.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size:100% 100%;
+    color: rgba(255, 255, 255, 0);
+}
 
 .card.red {
 
@@ -125,6 +131,7 @@ body {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    color: rgba(255, 255, 255, 0);
 }
 
 .card::before,
