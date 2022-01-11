@@ -102,7 +102,7 @@ function fill_deck_by_data(data){
             }
         else {	
         p2cardslot.appendChild(drawCard(o,'back'))
-        document.getElementById(o.cardid).addEventListener("click",do_move,false)
+        document.getElementById(o.cardid).addEventListener("click",do_move)
         }}
 
     }}
@@ -121,8 +121,8 @@ function fill_deck_by_data(data){
             result(2);
         }
         if(game_status.p_turn==me.p_turn &&  me.p_turn!=null) {
-            x=0;
-            
+          
+            fill_deck();
            
             if(game_stat_old.p_turn!=game_status.p_turn) {
                 fill_deck();
