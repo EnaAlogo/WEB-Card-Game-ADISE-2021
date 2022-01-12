@@ -12,6 +12,46 @@ const p2cardslot=document.querySelector('.p2-card-slot');
 const cardmove=document.getElementById('cardpick');
 const turnnotif=document.getElementById('turnnotif');
 const widget=document.querySelector('.widget');
+
+
+let drawCard={
+    basic:function(data){
+        let carddiv=document.createElement('div')
+        const color=data.suits==="♣"||data.suits==="♠" ? 'black' : 'red' 
+        carddiv.innerText=data.suits
+        carddiv.classList.add("card",color)
+        carddiv.dataset.value=`${data.val} ${data.suits}`
+        carddiv.setAttribute("id",data.cardid)
+        return carddiv;
+
+    }
+    ,moutzouris: function(data){
+        let carddiv=document.createElement('div')
+        carddiv.innerText='??'
+        carddiv.classList.add("card",'moutz')
+        carddiv.setAttribute("id",data.cardid)
+        return carddiv;
+    }
+    ,back: function(data){
+        let carddiv=document.createElement('div')
+        carddiv.innerText='??'
+        carddiv.classList.add("card",'back')
+        carddiv.setAttribute("id",data.cardid)
+        return carddiv;}
+}
+
+
+let playaudio={
+    picking : function(){
+        cardmove.play();
+    }
+    ,turn:function(){
+        turnnotif.play(); 
+    }
+}
+
+
+
 $(function () {
 	$('#game_login').click( login_to_game);
 	$('#game_reset').click( reset_deck);
@@ -46,35 +86,6 @@ function reset_database2() {
 }
 
 
-function drawCard(data,type){
-    const carddiv=document.createElement('div')
-    switch(type){
-        case 'back':
-
-carddiv.innerText='??'
-carddiv.classList.add("card",'back')
-
-carddiv.setAttribute("id",data.cardid)
-
-break;
-case 'card':
-   
-    const color=data.suits==="♣"||data.suits==="♠" ? 'black' : 'red' 
-    carddiv.innerText=data.suits
-    carddiv.classList.add("card",color)
-    carddiv.dataset.value=`${data.val} ${data.suits}`
-    carddiv.setAttribute("id",data.cardid)
-    break;
-case 'moutzouris':
-    carddiv.innerText='??'
-carddiv.classList.add("card",'moutz')
-
-carddiv.setAttribute("id",data.cardid)
-break;
-    }
-    return carddiv;
-
-}
 
 function fill_deck_by_data(data){
     cleandivs();
@@ -94,14 +105,14 @@ function fill_deck_by_data(data){
         
         if(o.owning==compar){	
             if(o.val=='K'){
-                p1cardslot.appendChild(drawCard(o,'moutzouris'))
+                p1cardslot.appendChild(drawCard.moutzouris(o))
             }
             else{
-            p1cardslot.appendChild(drawCard(o,'card'))
+            p1cardslot.appendChild(drawCard.basic(o))
             }
             }
         else {	
-        p2cardslot.appendChild(drawCard(o,'back'))
+        p2cardslot.appendChild(drawCard.back(o))
         document.getElementById(o.cardid).addEventListener("click",do_move)
         }}
 
@@ -121,12 +132,12 @@ function fill_deck_by_data(data){
             result(2);
         }
         if(game_status.p_turn==me.p_turn &&  me.p_turn!=null) {
-          
+            
+            
             fill_deck();
-           
             if(game_stat_old.p_turn!=game_status.p_turn) {
                 fill_deck();
-                playaudio(2);
+                playaudio.turn();
             }
         
             timer=setTimeout(function() { game_status_update();}, 15000);
@@ -143,7 +154,7 @@ function fill_deck_by_data(data){
         
         var o=event.target;
         var id=o.id;
-        $.ajax({url: "moutzouris.php/deck/card/", 
+        $.ajax({url: "moutzouris.php/deck/card/"+id, 
                 method: 'PUT',
                 dataType: "json",
                 contentType: 'application/json',
@@ -155,6 +166,7 @@ function fill_deck_by_data(data){
         
 
     }
+
 function result(norm){
  if(me.token!=null){  
 if(game_status.result!=null){
@@ -192,21 +204,6 @@ else{
 
  }
 }
-
-function playaudio(selection){
-    if(selection==1){
-        cardmove.play();
-    }
-    else if(selection==2){
-        turnnotif.play(); 
-
-    }
-    
-}
-
-
-
-
 
     function login_to_game() {
         if($('#username').val()=='') {
@@ -252,7 +249,7 @@ function playaudio(selection){
    
 
     function move_result(data){
-        playaudio(1);
+        playaudio.picking();
         game_status_update();
         fill_deck_by_data(data);
     }
