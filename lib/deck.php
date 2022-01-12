@@ -48,26 +48,15 @@ function move_card($id,$token) {
 
 }
 
-	/*header("HTTP/1.1 400 Bad Request");
-	print json_encode(['errormesg'=>"This move is illegal.'$id'"]);
-	exit;	header("HTTP/1.1 400 Bad Request");
-	print json_encode(['errormesg'=>"This move is illegal.'$id','$ow'"]);
-	exit;
-*/
 
 
 
 
 function show_deck($input) {
 	global $mysqli;
-
-	$b=current_player($input['token']);
-	if($b) {
-		show_deck_by_player($b);
-	} else {
-		header('Content-type: application/json');
-		print json_encode(read_deck(), JSON_PRETTY_PRINT);
-	}
+        header('Content-type: application/json');
+	print json_encode(read_deck(), JSON_PRETTY_PRINT);
+	
 }
 
 function reset_deck() {
@@ -90,27 +79,7 @@ function read_deck() {
 	return($res->fetch_all(MYSQLI_ASSOC));
 }
 
-function convert_deck(&$orig_deck) {
-	$deck=[];
-	foreach($orig_deck as $i=>&$row) {
-		$deck[$row['cardid']] = &$row;
-	} 
-	return($deck);
-}
 
-function show_deck_by_player($b) {
-
-	global $mysqli;
-
-	$orig_deck=read_deck();
-	$deck=convert_deck($orig_deck);
-	$status = read_status();
-	if($status['status']=='started' && $status['p_turn']==$b && $b!=null) {
-		
-	}
-	header('Content-type: application/json');
-	print json_encode($orig_deck, JSON_PRETTY_PRINT);
-}
 
 
 function do_move($id,$ow) {
