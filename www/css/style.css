@@ -16,32 +16,7 @@ body {
 }
 
 
-.deck{
-    height: 100%;
-    width: 100%;
-    border: 1px solid black;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    font-size: 3rem;
-    border-radius: .5rem;
-    color: white;
-    user-select: none;
 
-}
-
-
-.p2-deck{
-
-    background-color: transparent;
-    border: transparent;
-    position: relative;
-
-}
-.p1-deck{
-    background-color: aliceblue;
-
-}
 #game_reset{
     max-height: 2.3rem;
 }
