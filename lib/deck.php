@@ -120,7 +120,7 @@ function do_move($id,$ow) {
 	$st = $mysqli->prepare($sql);
 	$st->bind_param('is',$id,$ow );
 	$st->execute();
-    $sql = 'call new_deck()';
+   
 	header('Content-type: application/json');
 	print json_encode(read_deck(), JSON_PRETTY_PRINT);
 
