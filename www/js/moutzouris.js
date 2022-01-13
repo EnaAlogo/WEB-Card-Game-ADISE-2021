@@ -61,16 +61,24 @@ $(function () {
 
 });
 function fill_deck() {
-    cleandivs()
+    
 	$.ajax({url: "moutzouris.php/deck/", 
 		headers: {"X-Token": me.token},
 		success: fill_deck_by_data });
 }
 
 function reset_deck() {
+    if(me.p_turn=='p2'&&game_status.status!='initialized'){
+    widget.innerText='Please wait for your turn...';
+
+    }
+    if(me.p_turn=='p1'&&game_status.status!='initialized'){
+        widget.innerText='Its your turn to play now';;
     
+        }
 	$.ajax({url: "moutzouris.php/deck/", headers: {"X-Token": me.token}, method: 'POST',  success: fill_deck_by_data });
-    result(2)
+    
+   
 
 }
 function reset_database(){
@@ -100,6 +108,9 @@ function resets(){
 
 
 function fill_deck_by_data(data){
+    if(deck==data){
+        return;
+    }
     cleandivs();
 
     deck=data;
@@ -141,6 +152,7 @@ function fill_deck_by_data(data){
         }
         if(game_stat_old.result!=game_status.result){
             result(1);
+            
         }
         else{
             result(2);
@@ -149,9 +161,10 @@ function fill_deck_by_data(data){
             
             
             
-            if(game_stat_old.p_turn!=game_status.p_turn) {
+            if(game_stat_old.p_turn!=game_status.p_turn&&game_status.status=='started') {
                 
                 playaudio.turn();
+                fill_deck();
             }
         
             timer=setTimeout(function() { game_status_update();}, 15000);
@@ -204,6 +217,7 @@ else{
     widget.innerText='Game initialized wait for another player';
    }
    else{
+    
     if(game_status.p_turn==me.p_turn){
     widget.innerText='Its your turn to play now';
     }
@@ -235,14 +249,15 @@ else{
                 data: JSON.stringify( {username: $('#username').val(), p_turn: pturn}),
                 success: login_result,
                 error: login_error});
-                 fill_deck();
+                
     }
 
     function login_result(data) {
         me = data[0];
         $('#game_initializer').hide();
         
-        game_status_update();
+        game_status_update()
+        fill_deck()
     }
 
     function login_error(data,y,z,c) {
