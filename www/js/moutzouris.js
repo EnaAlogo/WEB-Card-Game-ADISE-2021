@@ -61,13 +61,16 @@ $(function () {
 
 });
 function fill_deck() {
+    cleandivs()
 	$.ajax({url: "moutzouris.php/deck/", 
 		headers: {"X-Token": me.token},
 		success: fill_deck_by_data });
 }
 
 function reset_deck() {
+    
 	$.ajax({url: "moutzouris.php/deck/", headers: {"X-Token": me.token}, method: 'POST',  success: fill_deck_by_data });
+    result(2)
 
 }
 function reset_database(){
@@ -79,12 +82,21 @@ function reset_database(){
 }
 function reset_database2() {
 	$.ajax({url: "moutzouris.php/deck/", headers: {"X-Token": me.token}, method: 'PUT',  success: fill_deck_by_data });
+    resets()
+	
 
-	$('#game_initializer').show(2000);
+}
+function resets(){
+    $('#game_initializer').show(2000);
     me={token:null,p_turn:null};
     cleandivs();
-}
+    ore=0;
+    anata=0;
+    oredesu.innerText='Me: '+ore;
+    anatadesu.innerText='Other player: '+anata;
+    result(2);
 
+}
 
 
 function fill_deck_by_data(data){
@@ -122,11 +134,13 @@ function fill_deck_by_data(data){
         last_update=new Date().getTime();
         var game_stat_old = game_status;
         game_status=data[0];
-        
-       
+        fill_deck();
         clearTimeout(timer);
+        if(game_status.status=='not active'){
+            resets()
+        }
         if(game_stat_old.result!=game_status.result){
-             result(1);
+            result(1);
         }
         else{
             result(2);
@@ -134,9 +148,9 @@ function fill_deck_by_data(data){
         if(game_status.p_turn==me.p_turn &&  me.p_turn!=null) {
             
             
-            fill_deck();
+            
             if(game_stat_old.p_turn!=game_status.p_turn) {
-                fill_deck();
+                
                 playaudio.turn();
             }
         
@@ -168,7 +182,7 @@ function fill_deck_by_data(data){
     }
 
 function result(norm){
- if(me.token!=null){  
+if(me.token!=null){  
 if(game_status.result!=null){
     if(game_status.result==me.p_turn){
         widget.innerText='YOU WON!'
@@ -237,7 +251,6 @@ else{
     }
 
     function game_status_update() {
-
         clearTimeout(timer);
         $.ajax({url: "moutzouris.php/status/", success: update_status,headers: {"X-Token": me.token} });
     }
