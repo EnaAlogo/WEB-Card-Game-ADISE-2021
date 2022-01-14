@@ -356,7 +356,8 @@ call generate_deck;
 call shuffle;
 call delete_dups('player1');
 call delete_dups('player2');
-
+DROP TABLE IF EXISTS playing_deck;
+CREATE TABLE playing_deck SELECT * FROM deck ORDER BY RAND();
 
 
 
@@ -400,6 +401,8 @@ declare turn varchar(2);
 
 update game_status set p_turn=if(ow='p1','p2','p1');
 call win_condition;
+DROP TABLE IF EXISTS playing_deck;
+CREATE TABLE playing_deck SELECT * FROM deck ORDER BY RAND();
 end ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
