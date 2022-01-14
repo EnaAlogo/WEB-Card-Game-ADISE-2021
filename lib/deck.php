@@ -72,7 +72,7 @@ function reset_database() {
 
 function read_deck() {
 	global $mysqli;
-	$sql = 'select * from deck';
+	$sql = 'select * from playing_deck';
 	$st = $mysqli->prepare($sql);
 	$st->execute();
 	$res = $st->get_result();
