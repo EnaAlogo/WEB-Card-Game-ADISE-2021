@@ -12,6 +12,20 @@ function show_card($id) {
 	print json_encode($res->fetch_all(MYSQLI_ASSOC), JSON_PRETTY_PRINT);
 }
 
+function cards_owner($id){
+	global $mysqli;
+	$sql = 'select * from playing_deck where cardid=?';
+	$st = $mysqli->prepare($sql);
+	$st->bind_param('i',$id);
+	$st->execute();
+	$res = $st->get_result();
+	if($row=$res->fetch_assoc()) {
+		return($row['owning']);
+	}
+	return(null);
+} 
+	
+
 
 
 
@@ -40,11 +54,32 @@ function move_card($id,$token) {
 		print json_encode(['errormesg'=>"It is not your turn."]);
 		exit;
 	}
-	
-	do_move($id,$player);
-	exit;
-	
-	
+    if($player=='p1'){
+		if(cards_owner($id)=='player2'){
+	      do_move($id,$player);
+	      exit;}
+		  else{
+			header("HTTP/1.1 400 Bad Request");
+			print json_encode(['errormesg'=>"Illegal Move"]);
+			exit;
+
+		  }
+		}
+	else if($player=='p2'){
+		if(cards_owner($id)=='player1'){
+			do_move($id,$player);
+			exit;}
+			else{
+			  header("HTTP/1.1 400 Bad Request");
+			  print json_encode(['errormesg'=>"Illegal Move"]);
+			  exit;
+  
+			}
+
+	}
+	header("HTTP/1.1 400 Bad Request");
+	print json_encode(['errormesg'=>"Illegal Move"]);
+	 exit;
 
 }
 
@@ -54,8 +89,11 @@ function move_card($id,$token) {
 
 function show_deck($input) {
 	global $mysqli;
-        header('Content-type: application/json');
-	print json_encode(read_deck(), JSON_PRETTY_PRINT);
+    $player = current_player($input['token']);
+
+		header('Content-type: application/json');
+		print json_encode(read_deck(), JSON_PRETTY_PRINT);
+		
 	
 }
 
@@ -82,6 +120,9 @@ function read_deck() {
 
 
 
+
+
+
 function do_move($id,$ow) {
 	
 	global $mysqli;
@@ -91,11 +132,59 @@ function do_move($id,$ow) {
 	$st->execute();
    
 	header('Content-type: application/json');
-	print json_encode(read_deck(), JSON_PRETTY_PRINT);
+	print json_encode(read_deck($ow), JSON_PRETTY_PRINT);
 
 
 	
 
 }
+
+
+
+/*  
+kapies sinartiseis pou tha apagoreuan ton kathena na parei info gia to game
+kathos kai o kathe paixtis tha eperne mono tis dikies tou kartes alla den kserw
+ean itan kataliles gia tis anagkes tis ergasias
+
+function read_deck($p) {
+	global $mysqli;
+	if($p=='p1'){
+	$sql = 'select * from playing_deck where owning="player1"';
+	}
+	else if($p=='p2'){
+		$sql = 'select * from playing_deck where owning="player2"';
+	}
+	$sql = 'select * from playing_deck';
+	$st = $mysqli->prepare($sql);
+	$st->execute();
+	$res = $st->get_result();
+	return($res->fetch_all(MYSQLI_ASSOC));
+}
+
+function readOther($p){
+	global $mysqli;
+	if($p=='p1'){
+	$sql = 'select cardid,owning from playing_deck where owning="player2"';
+	}
+	else if($p=='p2'){
+		$sql = 'select cardid,owning from playing_deck where owning="player1"';	
+	}
+	$st = $mysqli->prepare($sql);
+	$st->execute();
+	$res = $st->get_result();
+	return($res->fetch_all(MYSQLI_ASSOC));
+}
+
+function show_by($p){
+	if($p==null){
+		header("HTTP/1.1 400 Bad Request");
+	print json_encode(['errormesg'=>"Access Denied"]);
+	exit;
+
+	}
+	return array_merge(readOther($p),read_deck($p));
+}
+*/
+
 
 ?> 
