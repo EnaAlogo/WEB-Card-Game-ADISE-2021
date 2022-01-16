@@ -140,7 +140,7 @@ function do_move($id,$ow) {
 
 
 /*  
-kapies sinartiseis pou tha apagoreuan ton kathena na parei info gia to game
+kapies sinartiseis pou tha apagoreuan ton kathena na parei info gia to deck
 kai mono o kathe paixtis tha eperne info gia tis dikies tou kartes alla den kserw
 ean itan kataliles gia tis anagkes tis ergasias, to $p tha dinotan mesw tou show deck 
 me $player = current_player($input['token']);
