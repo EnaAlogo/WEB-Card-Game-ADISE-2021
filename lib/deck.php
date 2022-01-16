@@ -88,11 +88,9 @@ function move_card($id,$token) {
 
 
 function show_deck($input) {
-	global $mysqli;
-    $player = current_player($input['token']);
-
-		header('Content-type: application/json');
-		print json_encode(read_deck(), JSON_PRETTY_PRINT);
+     global $mysqli;
+     header('Content-type: application/json');
+     print json_encode(read_deck(), JSON_PRETTY_PRINT);
 		
 	
 }
@@ -144,7 +142,8 @@ function do_move($id,$ow) {
 /*  
 kapies sinartiseis pou tha apagoreuan ton kathena na parei info gia to game
 kathos kai o kathe paixtis tha eperne mono tis dikies tou kartes alla den kserw
-ean itan kataliles gia tis anagkes tis ergasias
+ean itan kataliles gia tis anagkes tis ergasias, ot $p tha dinotan mesw tou show deck 
+me $player = current_player($input['token']);
 
 function read_deck($p) {
 	global $mysqli;
