@@ -8,7 +8,7 @@ $pass=$DB_PASS;
 
 
 if(gethostname()=='users.it.teithe.gr') {
-	$mysqli = new mysqli($host, $user, $pass, $db,null,'/home/student/it/2016/it164773/mysql/run/mysql.sock');
+	$mysqli = new mysqli($host, $user, $pass, $db,null,'[redacted]');
 } else {
 		$pass=null;
         $mysqli = new mysqli($host, $user, $pass, $db);
